@@ -29,7 +29,7 @@ path=$(cd "$path" && pwd)
 
 # Confirm the settings
 printf "\nSettings:\n- working directory: $path\n- maximum image size: $size pixels\n\nOriginal images will be overwritten!\n\n"
-read -p "Is this correct? [y/N]: " -n 1 -r answer
+read -p "Is this correct? [y/N] " -n 1 -r answer
 if [ "$answer" != "y" ] && [ "$answer" != "Y" ]; then
     printf "\nOperation cancelled.\n"
     exit 1
