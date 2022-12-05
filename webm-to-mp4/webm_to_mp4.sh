@@ -6,13 +6,36 @@ if ! [ -x "$(command -v ffmpeg)" ]; then
     exit 1
 fi
 
-# Ask for the path to a single WebM file or a directory containing WebM files
-read -p "Enter the path to a single WebM file or a directory containing WebM files: " path
+# Check for named parameters -p (path) and -y (assume yes)
+while getopts ":p:y" opt; do
+    case $opt in
+        p)
+            path=$OPTARG
+            ;;
+        y)
+            assume_yes=true
+            ;;
+        \?)
+            echo "Invalid option: -$OPTARG" >&2
+            exit 1
+            ;;
+        :)
+            echo "Option -$OPTARG requires an argument." >&2
+            exit 1
+            ;;
+    esac
+done
 
-# Chcek if the path leads to a file or a directory which the user has read and write access to
-if [ ! -f "$path" ] && [ ! -d "$path" ] || [ ! -r "$path" ] || [ ! -w "$path" ]; then
-    echo "The path you entered is not a file or a directory or you do not have sufficient permissions to read and write to it."
-    exit 1
+# Ask for path if not provided
+if [ -z "$path" ]; then
+    # Ask for the path to a single WebM file or a directory containing WebM files
+    read -p "Enter the path to a single WebM file or a directory containing WebM files: " path
+
+    # Chcek if the path leads to a file or a directory which the user has read and write access to
+    if [ ! -f "$path" ] && [ ! -d "$path" ] || [ ! -r "$path" ] || [ ! -w "$path" ]; then
+        echo "The path you entered is not a file or a directory or you do not have sufficient permissions to read and write to it."
+        exit 1
+    fi
 fi
 
 # Get absolute path to the file or directory
@@ -27,21 +50,23 @@ elif [ -d "$path" ]; then
     type="directory"
 fi
 
-# Confirm the settings
-printf "\nOperation details:\n"
-if [ "$type" = "file" ]; then
-    printf -- "- selected file: $path\n- output file: ${path%.*}.mp4\n- original file will be preserved\n\n"
-else
-    printf -- "- selected directory: $path\n- all WebM files in the directory will be converted to MP4, original files will be preserved\n\n"
-fi
+# Confirm the settings if the user did not profide an assume yes flag
+if [ -z "$assume_yes" ]; then
+    printf "\nOperation details:\n"
+    if [ "$type" = "file" ]; then
+        printf -- "- selected file: $path\n- output file: ${path%.*}.mp4\n- original file will be preserved\n\n"
+    else
+        printf -- "- selected directory: $path\n- all WebM files in the directory will be converted to MP4, original files will be preserved\n\n"
+    fi
 
-read -p "Is this correct? [y/N] " -n 1 -r answer
+    read -p "Is this correct? [y/N] " -n 1 -r answer
 
-if [ "$answer" != "y" ] && [ "$answer" != "Y" ]; then
-    printf "\nOperation cancelled.\n"
-    exit 1
-else 
-    printf "\n\n"
+    if [ "$answer" != "y" ] && [ "$answer" != "Y" ]; then
+        printf "\nOperation cancelled.\n"
+        exit 1
+    else 
+        printf "\n\n"
+    fi
 fi
 
 # Conversion function
