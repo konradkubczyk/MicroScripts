@@ -74,8 +74,12 @@ function convert {
     # Get the name of the file without the extension
     filename="${file%.*}"
 
-    # Convert the file
-    ffmpeg -i "$file" -c:v libx264 -c:a aac "$filename.mp4"
+    # Convert the file with -y option if the user provided an assume yes flag
+    if [ -n "$assume_yes" ]; then
+        ffmpeg -i "$file" -c:v libx264 -c:a aac "$filename.mp4" -y
+    else
+        ffmpeg -i "$file" -c:v libx264 -c:a aac "$filename.mp4"
+    fi
 
     # Print the name of the converted file
     echo "Converted file: $filename.mp4"
