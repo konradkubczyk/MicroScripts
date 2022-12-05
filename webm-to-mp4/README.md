@@ -5,3 +5,24 @@ This script converts WebM files to MP4 using [FFmpeg](https://ffmpeg.org/). The 
 ## Requirements
 
 - [FFmpeg](https://ffmpeg.org/)
+
+## Usage
+
+You can use the script in two ways:
+
+1. Use interactive mode by running the script without any arguments:
+
+    ```bash
+    ./webm-to-mp4.sh
+    ```
+
+2. Use command line arguments:
+
+    ```bash
+    ./webm-to-mp4.sh [-p path] [-y]
+    ```
+
+    Available arguments:
+
+    - `-p` - path to the file or directory of files to convert
+    - `-y` - automatically answer yes to all prompts
