@@ -12,6 +12,7 @@ These are the scripts currently available in this repository:
 
 - [image-downsizer](image-downsizer) - downsizes images in a directory to a specified maximum width or height using [ImageMagick](https://imagemagick.org/index.php)
 - [webm-to-mp4](webm-to-mp4) - converts WebM files to MP4 using [FFmpeg](https://ffmpeg.org/)
+- [bulk-image-trimmer](bulk-image-trimmer) - trims images in a directory in bulk to remove empty space surrounding the content using [ImageMagick](https://imagemagick.org/index.php)
 
 Click on the name to go to the script's directory.
 
@@ -41,7 +42,7 @@ git clone https://gitlab.com/konradkubczyk/microscripts.git
 
 ### Downloading individual scripts
 
-To download the scripts individually, navigate to the script's or the script itself. You can copy the content of the script or download it as a file.
+To download the scripts individually, navigate to the script's directory or the script itself. You can copy the content of the script or download it as a file.
 
 > Don't forget to make the scripts executable by running `chmod +x <script>`.
 
