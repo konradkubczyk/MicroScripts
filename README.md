@@ -13,6 +13,7 @@ These are the scripts currently available in this repository:
 - [image-downsizer](image-downsizer) - downsizes images in a directory to a specified maximum width or height using [ImageMagick](https://imagemagick.org/index.php)
 - [webm-to-mp4](webm-to-mp4) - converts WebM files to MP4 using [FFmpeg](https://ffmpeg.org/)
 - [bulk-image-trimmer](bulk-image-trimmer) - trims images in a directory in bulk to remove empty space surrounding the content using [ImageMagick](https://imagemagick.org/index.php)
+- [hardware-metrics-logger](hardware-metrics-logger) - logs a chosen hardware metric to a CSV file every second using [lm_sensors](https://hwmon.wiki.kernel.org/lm_sensors)
 
 Click on the name to go to the script's directory.
 
